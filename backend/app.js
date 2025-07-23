@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from "./db/index.js";
 import walletRoute from "./routes/wallet.route.js";
 import transactionRoute from "./routes/transaction.route.js";
+import transactionDetailsRoute from "./routes/tranxDetails.route.js";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ connectDB();
 
 app.use("/setup", walletRoute);
 app.use("/transact", transactionRoute);
+app.use("/transaction", transactionDetailsRoute);
 
 app.listen(process.env.PORT ?? 3000, () => {
   console.log(
