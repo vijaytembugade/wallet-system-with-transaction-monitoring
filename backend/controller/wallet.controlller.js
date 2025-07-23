@@ -72,4 +72,18 @@ const getAllWalletList = async (req, res) => {
     console.log(error);
   }
 };
-export { setupWallet, getAllWalletList };
+
+const getWalletDetails = async (req, res) => {
+  const { walletId } = req.params;
+  const wallet = await WalletModel.findById(walletId);
+  if (!wallet) {
+    return res.status(404).json({
+      message: "Wallet not found",
+    });
+  }
+  return res.status(200).json({
+    data: wallet,
+  });
+};
+
+export { setupWallet, getAllWalletList, getWalletDetails };

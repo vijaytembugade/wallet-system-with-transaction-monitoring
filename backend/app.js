@@ -14,6 +14,7 @@ app.use(express.json());
 connectDB();
 
 app.use("/setup", walletRoute);
+app.use("/wallet", walletRoute);
 app.use("/transact", transactionRoute);
 app.use("/transaction", transactionDetailsRoute);
 
