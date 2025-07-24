@@ -41,11 +41,11 @@ function Navbar({ activeNavTab, handleNavTabClick }: NavbarProps) {
         <NavigationMenuItem>
           <NavigationMenuLink
             className={`cursor-pointer ${
-              activeNavTab === NAV_TABS.TRANSACTIONS
+              activeNavTab === NAV_TABS.TRANSACTION
                 ? "text-blue-500 hover:text-blue-500"
                 : ""
             }`}
-            onClick={() => handleClickonMenu(NAV_TABS.TRANSACTIONS)}
+            onClick={() => handleClickonMenu(NAV_TABS.TRANSACTION)}
           >
             Transactions
           </NavigationMenuLink>

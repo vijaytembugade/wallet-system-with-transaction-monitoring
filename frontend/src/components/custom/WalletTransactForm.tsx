@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,7 +10,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { transactWallet } from "@/apis/transactWallet";
 import useHandleTransact from "@/hooks/useHandleTransact";
 
 const WalletTransactForm = () => {
@@ -49,7 +46,7 @@ const WalletTransactForm = () => {
                 <Input
                   type="number"
                   id="tabs-demo-name"
-                  value={amount}
+                  value={amount ?? ""}
                   onChange={(e) => setAmount(Number(e.target.value))}
                 />
               </div>
@@ -80,7 +77,7 @@ const WalletTransactForm = () => {
                 <Input
                   id="tabs-demo-current"
                   type="number"
-                  value={amount}
+                  value={amount ?? ""}
                   onChange={(e) => setAmount(Number(e.target.value))}
                 />
               </div>
