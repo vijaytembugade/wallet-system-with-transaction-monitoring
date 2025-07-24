@@ -19,7 +19,7 @@ const useSetupWallet = () => {
           username,
         };
         localStorage.setItem("walletDetails", JSON.stringify(walletDetails));
-        setWallet(walletDetails);
+        setWallet({ ...walletDetails });
       }
     } catch (error) {
       console.log(error);

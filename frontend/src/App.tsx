@@ -1,7 +1,10 @@
 import Navbar from "./components/custom/Navbar";
 import WalletSeupPopup from "./components/custom/WalletSeupPopup";
+import { NAV_TABS } from "./constants";
 import useActiveNavTab from "./hooks/useActiveNavTab";
-import TransactionFormSection from "./section/TransactionFormSection";
+import Operations from "./page/Operations";
+import TransactionDetails from "./page/TransactionDetails";
+import { TransactionProvider } from "./hooks/useTansactionDetailsProvider";
 
 function App() {
   const { activeNavTab, setActiveNavTab } = useActiveNavTab();
@@ -9,7 +12,12 @@ function App() {
     <>
       <Navbar activeNavTab={activeNavTab} handleNavTabClick={setActiveNavTab} />
       <WalletSeupPopup />
-      <TransactionFormSection />
+      {activeNavTab === NAV_TABS.OPERATIONS && <Operations />}
+      {activeNavTab === NAV_TABS.TRANSACTION && (
+        <TransactionProvider>
+          <TransactionDetails />
+        </TransactionProvider>
+      )}
     </>
   );
 }

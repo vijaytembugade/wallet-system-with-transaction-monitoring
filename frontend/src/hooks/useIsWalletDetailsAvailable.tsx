@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import useWallet from "./useWallet";
 
 const useIsWalletDetailsAvailable = () => {
