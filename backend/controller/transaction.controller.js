@@ -89,6 +89,8 @@ const getTransactionDetails = async (req, res) => {
       .skip(skip)
       .limit(limit);
 
+    const total = await TransactionModel.countDocuments({ walletId });
+
     if (!transaction) {
       return res.status(404).json({
         message: "Transaction not found",
@@ -97,6 +99,7 @@ const getTransactionDetails = async (req, res) => {
 
     res.status(200).json({
       data: transaction,
+      total,
     });
   } catch (error) {
     console.error(`Transaction details failed: ${error.message}`);
