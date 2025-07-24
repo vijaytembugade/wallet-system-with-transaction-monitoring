@@ -1,6 +1,6 @@
 const NAV_TABS = {
   OPERATIONS: "operations",
-  TRANSACTIONS: "transactions",
+  TRANSACTION: "transaction",
 } as const;
 
 export { NAV_TABS };
