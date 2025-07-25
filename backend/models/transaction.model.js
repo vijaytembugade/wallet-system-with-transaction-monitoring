@@ -3,7 +3,12 @@ import { TRANSACTION_TYPES } from "../constants/index.js";
 
 const transactionSchema = new Schema(
   {
-    amount: { type: Number, required: true },
+    amount: {
+      type: Number,
+      required: true,
+      min: 0.0001,
+      max: 1000000000000000000,
+    },
     type: {
       type: String,
       required: true,

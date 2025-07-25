@@ -7,20 +7,24 @@ const validateTransactionInputs = (walletId, amount, type) => {
   if (!walletId || !amount || !type) {
     throw new Error("Wallet ID, amount, and type are required");
   }
-  if (amount <= 0) {
-    throw new Error("Amount must be greater than 0");
+  if (Math.abs(amount) === 0) {
+    throw new Error("Amount should  not be 0");
   }
 };
 
 const calculateNewBalance = (currentBalance, amount, type) => {
-  if (type === TRANSACTION_TYPES.DEBIT) {
-    if (amount > currentBalance) {
+  if (type === TRANSACTION_TYPES.DEBIT || amount < 0) {
+    if (Math.abs(amount) > Math.abs(currentBalance)) {
       throw new Error("Wallet has insufficient balance");
     }
-    return currentBalance - amount;
+    return parseFloat(
+      (currentBalance - parseFloat(Math.abs(amount).toFixed(4))).toFixed(4)
+    );
   }
-  if (type === TRANSACTION_TYPES.CREDIT) {
-    return currentBalance + amount;
+  if (type === TRANSACTION_TYPES.CREDIT || amount > 0) {
+    return parseFloat(
+      (currentBalance + parseFloat(Math.abs(amount).toFixed(4))).toFixed(4)
+    );
   }
   throw new Error("Invalid transaction type");
 };
@@ -40,17 +44,21 @@ const createTransaction = async (req, res) => {
         throw new Error("Wallet not found");
       }
 
-      const newBalance = calculateNewBalance(wallet.balance, amount, type);
+      const newBalance = calculateNewBalance(
+        wallet.balance,
+        parseFloat(amount.toFixed(4)),
+        type
+      );
 
       wallet.balance = newBalance;
       await wallet.save({ session });
 
       const transactionData = {
         walletId,
-        amount,
+        amount: parseFloat(Math.abs(amount.toFixed(4))),
         type,
         description,
-        onRampBalance: newBalance,
+        onRampBalance: parseFloat(newBalance.toFixed(4)),
       };
       const createdTransaction = await TransactionModel.create(
         [transactionData],
@@ -80,12 +88,11 @@ const createTransaction = async (req, res) => {
 };
 
 const getTransactionDetails = async (req, res) => {
-  const { walletId, skip, limit } = req.query;
+  const { walletId, skip, limit, sortBy = { createdAt: -1 } } = req.query;
+
   try {
     const transaction = await TransactionModel.find({ walletId })
-      .sort({
-        createdAt: -1,
-      })
+      .sort(JSON.parse(sortBy))
       .skip(skip)
       .limit(limit);
 

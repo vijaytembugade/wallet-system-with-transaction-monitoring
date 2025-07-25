@@ -21,9 +21,12 @@ const setupWallet = async (req, res) => {
     }
 
     await session.withTransaction(async () => {
-      const wallet = await WalletModel.create([{ username, balance }], {
-        session,
-      });
+      const wallet = await WalletModel.create(
+        [{ username, balance: parseFloat(balance.toFixed(4)) }],
+        {
+          session,
+        }
+      );
 
       if (!wallet || wallet.length === 0) {
         throw new Error("Failed to create wallet");
@@ -33,7 +36,7 @@ const setupWallet = async (req, res) => {
         [
           {
             walletId: wallet[0]?._id,
-            amount: balance,
+            amount: parseFloat(balance.toFixed(4)),
             type: TRANSACTION_TYPES.CREDIT,
             description: "Initial Wallet Setup",
             onRampBalance: balance,
