@@ -483,5 +483,7 @@ Common error response format:
 ## Frontend Design and View
 
 ### Operation page
+<img width="2862" height="1344" alt="image" src="https://github.com/user-attachments/assets/5d590f28-7fbc-4444-ae4d-03d7dd20bf82" />
 
 ### Transaction Page
+<img width="2840" height="1360" alt="image" src="https://github.com/user-attachments/assets/873bacee-3ebe-4417-b11d-785209402c08" />
