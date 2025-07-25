@@ -14,6 +14,7 @@ const ReactGrid = (props: { rowData: any[]; columnDefs: any[] }) => {
         showToolbar
         {...props}
         disableColumnMenu
+        sortingMode="server"
       />
     </div>
   );

@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import useGetWalletId from "./useGetWalletId";
 import getTransactionDetails from "@/apis/getTransactionDetails";
 
@@ -8,11 +15,17 @@ const TransactionProvider = ({ children }: { children: React.ReactNode }) => {
   const walletId = useGetWalletId();
   const [transactionDetails, setTransactionDetails] = useState<any[]>([]);
   const [total, setTotal] = useState<number>(0);
+  const [sortModel, setSortModel] = useState<any>({ createdAt: -1 });
 
   const [paginationModel, setPaginationModel] = useState({
     page: 0,
     pageSize: 5,
   });
+
+  const handleSortModelChange = useCallback((sortModel: any) => {
+    const sortBy = sortModel?.[0];
+    if (sortBy) setSortModel({ [sortBy.field]: sortBy.sort });
+  }, []);
 
   useEffect(() => {
     if (walletId) {
@@ -20,7 +33,8 @@ const TransactionProvider = ({ children }: { children: React.ReactNode }) => {
         const { data, total } = await getTransactionDetails(
           walletId,
           paginationModel.page + 1,
-          paginationModel.pageSize
+          paginationModel.pageSize,
+          JSON.stringify(sortModel)
         );
         setTransactionDetails(
           data.map((item: any) => ({
@@ -33,7 +47,7 @@ const TransactionProvider = ({ children }: { children: React.ReactNode }) => {
       };
       fetchTransactionDetails();
     }
-  }, [walletId, paginationModel]);
+  }, [walletId, paginationModel, sortModel]);
 
   return (
     <TransactionContext.Provider
@@ -42,6 +56,7 @@ const TransactionProvider = ({ children }: { children: React.ReactNode }) => {
         paginationModel,
         setPaginationModel,
         total,
+        handleSortModelChange,
       }}
     >
       {children}

@@ -13,11 +13,14 @@ const useHandleTransact = () => {
 
   const handleTransact = async () => {
     const result = await transactWallet(walletId, {
-      amount,
+      amount: amount
+        ? type === "DEBIT"
+          ? -parseFloat(amount.toFixed(4))
+          : parseFloat(amount.toFixed(4))
+        : 0,
       type,
       description,
     });
-    console.log(result[0]);
     if (result) {
       updateBalence();
     }

@@ -45,7 +45,10 @@ const WalletTransactForm = () => {
                 <Label htmlFor="tabs-demo-name">Amount</Label>
                 <Input
                   type="number"
-                  id="tabs-demo-name"
+                  min={0}
+                  title="Please enter a number with exactly 4 decimal places (e.g., 123.4567)"
+                  placeholder="e.g., 123.4567"
+                  required
                   value={amount ?? ""}
                   onChange={(e) => setAmount(Number(e.target.value))}
                 />
