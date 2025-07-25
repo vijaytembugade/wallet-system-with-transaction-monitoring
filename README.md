@@ -1,5 +1,23 @@
 ## Project Overview
 
+## Index
+
+- [Project Overview](#project-overview)
+- [How to setup locally](#how-to-setup-locally)
+  - [Backend Setup](#backend-setup)
+  - [Frontend Setup](#frontend-setup)
+- [API Documentation](#api-documentation)
+  - [Authentication](#authentication)
+  - [Wallets](#wallets)
+  - [Transactions](#transactions)
+    - [Get Transactions](#get-transactions)
+    - [Create Transaction](#create-transaction)
+    - [Get Transaction Details](#get-transaction-details)
+- [Error Handling](#error-handling)
+- [Frontend Design and View](#frontend-design-and-view)
+  - [Operation page](#operation-page)
+  - [Transaction Page](#transaction-page)
+
 ### How to setup locally
 
 #### Backend Setup
