@@ -1,4 +1,5 @@
 const API = import.meta.env.VITE_API_URL;
+import { toast } from "sonner";
 
 export const setupWallet = async (username: string, balance: number) => {
   try {
@@ -13,6 +14,9 @@ export const setupWallet = async (username: string, balance: number) => {
 
     return result?.data;
   } catch (error) {
+    toast.error(
+      error instanceof Error ? error.message : "Failed to setup wallet"
+    );
     console.log(error);
   }
 

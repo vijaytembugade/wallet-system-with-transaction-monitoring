@@ -5,6 +5,7 @@ import useActiveNavTab from "./hooks/useActiveNavTab";
 import Operations from "./page/Operations";
 import TransactionDetails from "./page/TransactionDetails";
 import { TransactionProvider } from "./hooks/useTansactionDetailsProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 function App() {
   const { activeNavTab, setActiveNavTab } = useActiveNavTab();
@@ -18,6 +19,7 @@ function App() {
           <TransactionDetails />
         </TransactionProvider>
       )}
+      <Toaster />
     </>
   );
 }

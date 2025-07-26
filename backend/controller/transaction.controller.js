@@ -71,7 +71,9 @@ const createTransaction = async (req, res) => {
         throw new Error("Failed to create transaction");
       }
       res.status(200).json({
-        message: "Transaction created successfully",
+        message: `Amount Rs. ${parseFloat(Math.abs(amount).toFixed(4))} ${
+          type === TRANSACTION_TYPES.CREDIT ? "credited" : "debited"
+        } successfully`,
         data: createdTransaction,
       });
       return;

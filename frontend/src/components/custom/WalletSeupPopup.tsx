@@ -44,7 +44,6 @@ function WalletSeupPopup() {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction onClick={handleSetupWallet}>
             Continue
           </AlertDialogAction>

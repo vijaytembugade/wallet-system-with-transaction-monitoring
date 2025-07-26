@@ -12,7 +12,8 @@
   "main": "app.js",
   "devDependencies": {},
   "scripts": {
-    "start": "node --watch app.js"
+    "start": "node app.js",
+    "build": "npm install"
   },
   "author": "Vijay Tembugade",
   "license": "ISC"

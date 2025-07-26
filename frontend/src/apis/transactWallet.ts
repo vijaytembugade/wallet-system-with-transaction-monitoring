@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 const API = import.meta.env.VITE_API_URL;
 
 type optionTypes = {
@@ -26,8 +27,16 @@ export const transactWallet = async (
       body: JSON.stringify(options),
     });
     const result = await response.json();
+    if (result?.error) {
+      throw new Error(result.error);
+    } else {
+      toast.success(result?.message || "Transaction successful");
+    }
     return result?.data;
   } catch (error) {
+    toast.error(error instanceof Error ? error.message : "Transaction failed", {
+      description: error?.error,
+    });
     console.log(error);
   }
 };
