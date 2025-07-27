@@ -21,6 +21,7 @@ const TransactionProvider = ({ children }: { children: React.ReactNode }) => {
     page: 0,
     pageSize: 5,
   });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSortModelChange = useCallback((sortModel: any) => {
     const sortBy = sortModel?.[0];
@@ -29,23 +30,30 @@ const TransactionProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (walletId) {
-      const fetchTransactionDetails = async () => {
-        const { data, total } = await getTransactionDetails(
-          walletId,
-          paginationModel.page + 1,
-          paginationModel.pageSize,
-          JSON.stringify(sortModel)
-        );
-        setTransactionDetails(
-          data.map((item: any) => ({
-            ...item,
-            id: item._id,
-            createdAt: new Date(item.createdAt).toLocaleString(),
-          }))
-        );
-        setTotal(total);
-      };
-      fetchTransactionDetails();
+      try {
+        setIsLoading(true);
+        const fetchTransactionDetails = async () => {
+          const { data, total } = await getTransactionDetails(
+            walletId,
+            paginationModel.page + 1,
+            paginationModel.pageSize,
+            JSON.stringify(sortModel)
+          );
+          setTransactionDetails(
+            data.map((item: any) => ({
+              ...item,
+              id: item._id,
+              createdAt: new Date(item.createdAt).toLocaleString(),
+            }))
+          );
+          setTotal(total);
+        };
+        fetchTransactionDetails();
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
     }
   }, [walletId, paginationModel, sortModel]);
 
@@ -57,6 +65,7 @@ const TransactionProvider = ({ children }: { children: React.ReactNode }) => {
         setPaginationModel,
         total,
         handleSortModelChange,
+        isLoading,
       }}
     >
       {children}

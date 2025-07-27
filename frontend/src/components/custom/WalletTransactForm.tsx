@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import useHandleTransact from "@/hooks/useHandleTransact";
+import { Loader2 } from "lucide-react";
 
 const WalletTransactForm = () => {
   const {
@@ -21,6 +22,7 @@ const WalletTransactForm = () => {
     setType,
     setDescription,
     handleTransact,
+    isLoading,
   } = useHandleTransact();
 
   return (
@@ -64,7 +66,13 @@ const WalletTransactForm = () => {
               </div>
             </CardContent>
             <CardFooter>
-              <Button onClick={handleTransact}>Add to wallet</Button>
+              <Button onClick={handleTransact} disabled={isLoading}>
+                {isLoading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  "Add to wallet"
+                )}
+              </Button>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -82,6 +90,7 @@ const WalletTransactForm = () => {
                   type="number"
                   value={amount ?? ""}
                   onChange={(e) => setAmount(Number(e.target.value))}
+                  disabled={isLoading}
                 />
               </div>
               <div className="grid gap-3">
@@ -91,11 +100,18 @@ const WalletTransactForm = () => {
                   type="text"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
+                  disabled={isLoading}
                 />
               </div>
             </CardContent>
             <CardFooter>
-              <Button onClick={handleTransact}>Withdraw from wallet</Button>
+              <Button onClick={handleTransact} disabled={isLoading}>
+                {isLoading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  "Withdraw from wallet"
+                )}
+              </Button>
             </CardFooter>
           </Card>
         </TabsContent>

@@ -75,12 +75,14 @@ const TransactionDetails = () => {
     setPaginationModel,
     total,
     handleSortModelChange,
+    isLoading,
   } = useTransactionDetails();
 
   return (
     <div className="flex flex-1 flex-col gap-4 justify-center items-center p-6 w-full">
       <h1 className="text-2xl font-bold">Transaction Details</h1>
       <ReactGrid
+        isLoading={isLoading}
         rowData={transactionDetails}
         columnDefs={columns}
         paginationModel={paginationModel}

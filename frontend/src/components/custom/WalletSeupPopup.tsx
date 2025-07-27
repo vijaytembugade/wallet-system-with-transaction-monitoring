@@ -1,7 +1,6 @@
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -12,11 +11,18 @@ import useIsWalletDetailsAvailable from "@/hooks/useIsWalletDetailsAvailable";
 import useSetupWallet from "@/hooks/useSetupWallet";
 import { memo } from "react";
 import { Input } from "../ui/input";
+import { Loader2 } from "lucide-react";
 
 function WalletSeupPopup() {
   const isWalletDetailsAvailable = useIsWalletDetailsAvailable();
-  const { username, balance, setUsername, setBalance, handleSetupWallet } =
-    useSetupWallet();
+  const {
+    username,
+    balance,
+    setUsername,
+    setBalance,
+    handleSetupWallet,
+    isLoading,
+  } = useSetupWallet();
   return (
     <AlertDialog open={!isWalletDetailsAvailable}>
       <AlertDialogContent className="w-5xl">
@@ -44,8 +50,12 @@ function WalletSeupPopup() {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogAction onClick={handleSetupWallet}>
-            Continue
+          <AlertDialogAction disabled={isLoading} onClick={handleSetupWallet}>
+            {isLoading ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              "Setup Wallet"
+            )}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

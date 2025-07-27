@@ -1,8 +1,12 @@
 import React from "react";
-import { DataGrid, GridRowsProp, GridColDef } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 
-const ReactGrid = (props: { rowData: any[]; columnDefs: any[] }) => {
-  const { rowData, columnDefs } = props;
+const ReactGrid = (props: {
+  rowData: any[];
+  columnDefs: any[];
+  isLoading: boolean;
+}) => {
+  const { rowData, columnDefs, isLoading } = props;
   return (
     <div style={{ height: "70vh", width: "100%" }}>
       <DataGrid
@@ -15,6 +19,7 @@ const ReactGrid = (props: { rowData: any[]; columnDefs: any[] }) => {
         {...props}
         disableColumnMenu
         sortingMode="server"
+        loading={isLoading}
       />
     </div>
   );
