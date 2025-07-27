@@ -19,11 +19,13 @@ type WalletContextType = {
   setWallet: (wallet: Wallet) => void;
   balance: number;
   setBalance: (balance: number) => void;
+  walletLoading: boolean;
 };
 
 const WalletProvider = ({ children }: { children: React.ReactNode }) => {
   const [wallet, setWallet] = useState<Wallet | null>(null);
   const [balance, setBalance] = useState<number>(0);
+  const [walletLoading, setWalletLoading] = useState<boolean>(false);
 
   useLayoutEffect(() => {
     const walletDetails = localStorage?.getItem("walletDetails");
@@ -46,17 +48,26 @@ const WalletProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (wallet?.walletId) {
-      (async () => {
-        const balance = await fetchBalance(wallet.walletId);
-        if (balance) {
-          setBalance(balance);
-        }
-      })();
+      try {
+        (async () => {
+          setWalletLoading(true);
+          const balance = await fetchBalance(wallet.walletId);
+          if (balance) {
+            setBalance(balance);
+          }
+        })();
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setWalletLoading(false);
+      }
     }
   }, [wallet?.walletId]);
 
   return (
-    <WalletContext.Provider value={{ wallet, setWallet, balance, setBalance }}>
+    <WalletContext.Provider
+      value={{ wallet, setWallet, balance, setBalance, walletLoading }}
+    >
       {children}
     </WalletContext.Provider>
   );
