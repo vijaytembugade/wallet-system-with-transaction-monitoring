@@ -7,7 +7,6 @@
   - [Backend Setup](#backend-setup)
   - [Frontend Setup](#frontend-setup)
 - [API Documentation](#api-documentation)
-  - [Authentication](#authentication)
   - [Wallets](#wallets)
   - [Transactions](#transactions)
     - [Get Transactions](#get-transactions)
