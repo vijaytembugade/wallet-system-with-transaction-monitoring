@@ -5,6 +5,7 @@ import { Loader2 } from "lucide-react";
 
 const WalletDetails = () => {
   const { wallet, balance, walletLoading: isLoading } = useWallet();
+  console.log(isLoading);
 
   return (
     <div className="flex flex-1 flex-col gap-4 justify-center items-center">

@@ -31,8 +31,8 @@ const TransactionProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (walletId) {
       try {
-        setIsLoading(true);
         const fetchTransactionDetails = async () => {
+          setIsLoading(true);
           const { data, total } = await getTransactionDetails(
             walletId,
             paginationModel.page + 1,
@@ -47,11 +47,11 @@ const TransactionProvider = ({ children }: { children: React.ReactNode }) => {
             }))
           );
           setTotal(total);
+          setIsLoading(false);
         };
         fetchTransactionDetails();
       } catch (error) {
         console.log(error);
-      } finally {
         setIsLoading(false);
       }
     }

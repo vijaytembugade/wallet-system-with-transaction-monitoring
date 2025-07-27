@@ -14,7 +14,6 @@ function App() {
     <>
       <Navbar activeNavTab={activeNavTab} handleNavTabClick={setActiveNavTab} />
       <WalletSeupPopup />
-      ``
       {activeNavTab === NAV_TABS.OPERATIONS && <Operations />}
       {activeNavTab === NAV_TABS.TRANSACTION && (
         <TransactionProvider>

@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { fetchBalance } from "./useUpdateWalletBalence";
 
 const WalletContext = createContext<WalletContextType | null>(null);
@@ -27,7 +21,7 @@ const WalletProvider = ({ children }: { children: React.ReactNode }) => {
   const [balance, setBalance] = useState<number>(0);
   const [walletLoading, setWalletLoading] = useState<boolean>(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const walletDetails = localStorage?.getItem("walletDetails");
     if (!walletDetails) {
       return;
@@ -47,19 +41,18 @@ const WalletProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   useEffect(() => {
+    setWalletLoading(true);
     if (wallet?.walletId) {
       try {
         (async () => {
-          setWalletLoading(true);
           const balance = await fetchBalance(wallet.walletId);
           if (balance) {
             setBalance(balance);
           }
+          setWalletLoading(false);
         })();
       } catch (error) {
         console.log(error);
-      } finally {
-        setWalletLoading(false);
       }
     }
   }, [wallet?.walletId]);
