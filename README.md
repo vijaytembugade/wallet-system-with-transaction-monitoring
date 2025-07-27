@@ -223,6 +223,8 @@ Currently, no authentication is required for any endpoints.
 
 **Endpoint:** `POST /setup/`
 
+**Prod-Endpoint:** `https://wallet-system-with-transaction-monitoring.onrender.com/setup/`
+
 **Description:** Creates a new wallet with initial balance and sets up the first transaction.
 
 **Request Body:**
@@ -272,6 +274,8 @@ Currently, no authentication is required for any endpoints.
 
 **Endpoint:** `GET /wallet/get-all-wallets`
 
+**Prod-Endpoint:** `https://wallet-system-with-transaction-monitoring.onrender.com/wallet/get-all-wallets/`
+
 **Description:** Retrieves a list of all wallets in the system.
 
 **Parameters:** None
@@ -301,6 +305,8 @@ Currently, no authentication is required for any endpoints.
 #### 3. Get Wallet Details
 
 **Endpoint:** `GET /wallet/:walletId`
+
+**Prod-Endpoint:** `https://wallet-system-with-transaction-monitoring.onrender.com/wallet/:walletId/`
 
 **Description:** Retrieves details of a specific wallet by its ID.
 
@@ -339,6 +345,8 @@ Currently, no authentication is required for any endpoints.
 #### 4. Create Transaction
 
 **Endpoint:** `POST /transact/:walletId`
+
+**Prod-Endpoint:** `https://wallet-system-with-transaction-monitoring.onrender.com/transact/:walletId`
 
 **Description:** Creates a new transaction (credit or debit) for a specific wallet.
 
@@ -405,6 +413,8 @@ Currently, no authentication is required for any endpoints.
 
 **Endpoint:** `GET /transaction/`
 
+**Prod-Endpoint:** `https://wallet-system-with-transaction-monitoring.onrender.com/transaction/`
+
 **Description:** Retrieves transaction history for a specific wallet with pagination support.
 
 **Query Parameters:**
@@ -417,7 +427,7 @@ Currently, no authentication is required for any endpoints.
 **Example Request:**
 
 ```
-GET /transaction/?walletId=507f1f77bcf86cd799439011&skip=0&limit=10
+GET /transaction/?walletId=507f1f77bcf86cd799439011&skip=0&limit=10&sortBy={createdAt: asc}
 ```
 
 **Response:**
